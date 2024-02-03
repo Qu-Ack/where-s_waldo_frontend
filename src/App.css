@@ -5,3 +5,15 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.image div .dropdown {
+
+  padding: 1rem;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:16px;
+  list-style:none;
+
+}
