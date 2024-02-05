@@ -1,33 +1,46 @@
-import { useState } from 'react'
 import './App.css'
+import { useState } from 'react'
+
+
 
 function App() {
-  const [isVisible , setIsVisible] = useState(false);
-  const [position , setPosition] = useState({x:0, y:0});
 
-  function handleMouseDown(e) {
-    setIsVisible(true)
-    let x_coordinate = e.clientX;
-    let y_coordinate = e.clientY;
-    setPosition({x:x_coordinate, y:y_coordinate});
-    console.log(position)    
-  }
+    const [visible, setVisible] = useState(false);
+    const [position, setPosition] = useState({ x: 0, y: 0 });
+
+    function handleClick(e) {
+        setVisible(true);
+        setPosition({ x: e.clientX, y: e.clientY });
+    }
 
 
-
-  return (
-    <div className="image" onMouseDown={handleMouseDown} style={{position:'relative'}} >
-      {isVisible && (
-        <div style={{position:'absolute', top:position.y, left:position.x, color:'red', background:'black'}}> 
-          <ul className='dropdown'>
-            <li className='option'>Bob</li>
-            <li className='option'>Rob</li>
-            <li className='option'>Lob</li>
-          </ul>
+    function handleDropDown(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        setVisible(false)
+    }
+    return (
+        <div className="image" onClick={handleClick}>
+            {
+                (visible && <div style={{ transform: `translateX(${position.x}px) translateY(${position.y}px)`, color: 'black' }}>
+                    <form method='POST' className='dropdown_form'>
+                        <button onClick={(e) => {
+                            handleDropDown(e)
+                        }}>Bob</button>
+                        <button onClick={(e) => {
+                            handleDropDown(e)
+                        }}>Rob</button>
+                        <button onClick={(e) => {
+                            handleDropDown(e)
+                        }}>Lob</button>
+                    </form>
+                </div>)
+            }
         </div>
-      )}
-    </div>
-  )
+    )
 }
+
+
+
 
 export default App
